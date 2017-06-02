@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var mongoose = require('mongoose'),
   bcrypt = require('bcrypt-nodejs');
 mongoose.Promise = global.Promise;
@@ -121,3 +122,8 @@ exports.details = function (req, res) {
     });
   });
 };
+=======
+exports.survey = function(req, res){
+    res.render('survey')
+};
+>>>>>>> master

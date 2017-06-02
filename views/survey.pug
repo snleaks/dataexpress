@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    form(id='survey', method='post', action='/userpage')
+        label(for='question1') Pick the best pizza topping:
+        br
+        select(name='answer1')
+            option(value="Pineapple") Pineapple
+            option(value="Veggies") Veggies
+            option(value="Pepperoni") Pepperoni
+            option(value="Sausage") Sausage
+        br    
+        label(for='question2') In your opinion, what is the most important meal of the day?
+        br
+        select(name='answer2')
+            option(value="Breakfast") Breakfast
+            option(value="Lunch") Lunch
+            option(value="Dinner") Dinner
+        br
+        label(for='question3') Pick the best beverage:
+        br
+        select(name='answer3')
+            option(value="") Water
+            option(value="") Soda
+            option(value="") Juice
+            option(value="") Sweet Tea
+        br
+        input(type='submit', value='Submit')
