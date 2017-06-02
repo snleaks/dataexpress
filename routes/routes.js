@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-  bcrypt = require('bcrypt-nodejs');
+  bcrypt = require('bcrypt-nodejs'),
+  survey = require('/survey.json');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/data');
 
@@ -41,7 +42,8 @@ exports.index = function (req, res) {
 
 exports.create = function (req, res) {
   res.render('create', {
-    title: 'Add User'
+    title: 'Add User',
+    questions: survey
   });
 };
 
@@ -87,17 +89,17 @@ exports.edit = function (req, res) {
 };
 
 exports.editUser = function (req, res) {
-  Users.findById(req.params.id, function (err, usr) {
+  Users.findById(req.params.id, function (err, user) {
     if (err) return console.error(err);
-    usr.username = req.body.username;
-    usr.password = req.body.password;
-    usr.user_level = req.body.user_level;
-    usr.email = req.body.email;
-    usr.age = req.body.age;
-    usr.ans1 = req.body.ans1;
-    usr.ans2 = req, body.ans2;
-    usr.ans3 = req.body.ans3;
-    usr.save(function (err, usr) {
+    user.username = req.body.username;
+    user.password = req.body.password;
+    user.user_level = req.body.user_level;
+    user.email = req.body.email;
+    user.age = req.body.age;
+    user.ans1 = req.body.ans1;
+    user.ans2 = req, body.ans2;
+    user.ans3 = req.body.ans3;
+    user.save(function (err, usr) {
       if (err) return console.error(err);
       console.log(req.body.username + ' updated');
     });
