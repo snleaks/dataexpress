@@ -4,7 +4,7 @@ block content
     form(id='survey', method='post', action='/userpage')
         label(for='question1') Pick the best pizza topping:
         br
-        select(name='answer1')
+        select(name='ans1')
             option(value="Pineapple") Pineapple
             option(value="Veggies") Veggies
             option(value="Pepperoni") Pepperoni
@@ -12,17 +12,17 @@ block content
         br    
         label(for='question2') In your opinion, what is the most important meal of the day?
         br
-        select(name='answer2')
+        select(name='ans2')
             option(value="Breakfast") Breakfast
             option(value="Lunch") Lunch
             option(value="Dinner") Dinner
         br
         label(for='question3') Pick the best beverage:
         br
-        select(name='answer3')
-            option(value="") Water
-            option(value="") Soda
-            option(value="") Juice
-            option(value="") Sweet Tea
+        select(name='ans3')
+            option(value="Water") Water
+            option(value="Soda") Soda
+            option(value="Juice") Juice
+            option(value="Sweet Tea") Sweet Tea
         br
         input(type='submit', value='Submit')
