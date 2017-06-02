@@ -1,6 +1,5 @@
 var mongoose = require('mongoose'),
-  bcrypt = require('bcrypt-nodejs'),
-  survey = require('/survey.json');
+  bcrypt = require('bcrypt-nodejs');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/data');
 
@@ -24,26 +23,25 @@ var userSchema = mongoose.Schema({
 var Users = mongoose.model('User_DB', userSchema);
 
 exports.admin = function (req, res) {
-  res.render('admin', {
-    title: 'Admin Page',
-    people: Users
+  Users.find(function (err, person) {
+    if (err) return console.error(err);
+    res.render('admin', {
+      title: 'Admin Page',
+      people: person
+    });
   });
 };
 
 exports.index = function (req, res) {
-  Users.find(function (err, person) {
-    if (err) return console.error(err);
-    res.render('index', {
-      title: 'Home',
-      people: person
-    });
+  res.render('index', {
+    title: 'Home'
   });
 };
 
 exports.create = function (req, res) {
   res.render('create', {
     title: 'Add User',
-    questions: survey
+    // questions: survey
   });
 };
 
@@ -124,6 +122,8 @@ exports.details = function (req, res) {
   });
 };
 
-exports.survey = function(req, res){
-    res.render('survey')
+exports.login = function (req, res) {
+  res.render('login', {
+
+  });
 };
