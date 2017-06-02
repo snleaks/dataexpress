@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  form(id='form', method='post', action='/edit/' + person.id)
+    label(for='username') Username: 
+    input(type='text', name='username' value=person.username)
+    br
+    label(for='password') Password: 
+    input(type='text', name='password' value='')
+    br
+    label(for='email') Email: 
+    input(type='text', name='email' value=person.email)
+    br
+    label(for='age') Age: 
+    input(type='text', name='age' value=person.age)
+    br
+    each question in questions
+      label(for='q1') #{question.q}: 
+      select(name='ans1')
+        option(value=question.answers[0]) #{question.answers[0]}
+        option(value=question.answers[1]) #{question.answers[1]}
+        option(value=question.answers[2]) #{question.answers[2]}
+        option(value=question.answers[3]) #{question.answers[3]}
+      br
+    input(type='submit', value='Update Info')

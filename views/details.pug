@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  p Username: #{person.username}
+  p User Level: #{person.user_level}
+  p Email: #{person.email}
+  p Age: #{person.age}
+  p Answers: #{person.ans1}, #{person.ans2}, #{person.ans3}
+  br
+  #menu
+    a(href='/') Go back
