@@ -14,12 +14,25 @@ block content
     label(for='age') Age: 
     input(type='text', name='age' value=person.age)
     br
-    each question in questions
-      label(for='q1') #{question.q}: 
-      select(name='ans1')
-        option(value=question.answers[0]) #{question.answers[0]}
-        option(value=question.answers[1]) #{question.answers[1]}
-        option(value=question.answers[2]) #{question.answers[2]}
-        option(value=question.answers[3]) #{question.answers[3]}
-      br
+    select(name='ans1')
+      option(value="Pineapple") Pineapple
+      option(value="Veggies") Veggies
+      option(value="Pepperoni") Pepperoni
+      option(value="Sausage") Sausage
+    br    
+    label(for='question2') In your opinion, what is the most important meal of the day?
+    br
+    select(name='ans2')
+      option(value="Breakfast") Breakfast
+      option(value="Lunch") Lunch
+      option(value="Dinner") Dinner
+    br
+    label(for='question3') Pick the best beverage:
+    br
+    select(name='ans3')
+      option(value="Water") Water
+      option(value="Soda") Soda
+      option(value="Juice") Juice
+      option(value="Sweet Tea") Sweet Tea
+    br
     input(type='submit', value='Update Info')

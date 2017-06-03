@@ -20,9 +20,10 @@ app.get('/create', route.create);
 app.get('/edit/:id', route.edit);
 app.get('/details/:id', route.details);
 app.get('/admin', route.admin);
-app.post('/create', urlencodedParser, route.createUser);
-app.post('/edit/:id', urlencodedParser, route.editUser);
 app.get('/delete/:id', route.delete);
 app.get('/login', route.login);
+app.post('/', urlencodedParser, route.authenticate)
+app.post('/create', urlencodedParser, route.createUser);
+app.post('/edit/:id', urlencodedParser, route.editUser);
 
 app.listen(3000);

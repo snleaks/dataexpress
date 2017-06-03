@@ -32,6 +32,26 @@ exports.admin = function (req, res) {
   });
 };
 
+exports.authenticate = function (req, res) {
+  var user = Users.find({ username: req.body.username }, { user: 1 });
+  if (user) {
+    if (checkPass(user, req.body.password)) {
+      console.log('Successful login by ' + user);
+    }
+  }
+};
+
+function checkPass(username, password) {
+  var authentic = false,
+    dbPass = Users.find({ username: username }, { password: 1, _id: 0 });
+    console.log("attempted password: " + password);
+    console.log("hashed password: " + dbPass);
+  bcrypt.compare(password, dbPass, function (err, res) {
+    authentic = res;
+  });
+  return authentic;
+}
+
 exports.index = function (req, res) {
   res.render('index', {
     title: 'Home'
@@ -40,8 +60,7 @@ exports.index = function (req, res) {
 
 exports.create = function (req, res) {
   res.render('create', {
-    title: 'Add User',
-    // questions: survey
+    title: 'Add User'
   });
 };
 
@@ -108,7 +127,7 @@ exports.editUser = function (req, res) {
 exports.delete = function (req, res) {
   Users.findByIdAndRemove(req.params.id, function (err, user) {
     if (err) return console.error(err);
-    res.redirect('/');
+    res.redirect('/admin');
   });
 };
 
