@@ -33,20 +33,21 @@ exports.admin = function (req, res) {
 };
 
 exports.authenticate = function (req, res) {
-  var user = Users.find({ username: req.body.username }, { user: 1 });
-  if (user) {
-    if (checkPass(user, req.body.password)) {
-      console.log('Successful login by ' + user);
+  var userId = Users.find({ username: req.body.username }, { _id:1 });
+  console.log(userId);
+  if (userId) {
+    if (checkPass(userId, req.body.password)) {
+      console.log('Successful login by ' + userId);
     }
   }
 };
 
-function checkPass(username, password) {
+function checkPass(id, password) {
   var authentic = false,
-    dbPass = Users.find({ username: username }, { password: 1, _id: 0 });
-    console.log("attempted password: " + password);
-    console.log("hashed password: " + dbPass);
+    dbPass = Users.findById(id);
+  dbPass = dbPass.password;
   bcrypt.compare(password, dbPass, function (err, res) {
+    if (err) return console.error(err);
     authentic = res;
   });
   return authentic;
@@ -65,6 +66,7 @@ exports.create = function (req, res) {
 };
 
 exports.createUser = function (req, res) {
+  console.log(req.body.password);
   var hashedPass = hashIt(req.body.password);
   var person = new Users({
     username: req.body.username,
@@ -77,23 +79,22 @@ exports.createUser = function (req, res) {
     ans3: req.body.ans3
   });
   person.save(function (err, user) {
-    if (err) return console.error(err);
+    if (err != undefined) { console.log(err); return; }
     console.log(req.body.username + ' added');
   });
   res.redirect('/');
 };
 
 function hashIt(toHash) {
-  var hashed;
-  bcrypt.hash(hashIt, null, null, function (err, hash) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    hashed = hash;
+  var obj = { };
+  bcrypt.hash(toHash, null, null, function (err, hash) {
+    obj.hashed = hash;
   });
-  return hashed;
+  console.log(obj.hashed);
+  return obj.hashed;
 }
+
+console.log(hashIt('hashMe'));
 
 exports.edit = function (req, res) {
   Users.findById(req.params.id, function (err, user) {
