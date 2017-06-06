@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-  bcrypt = require('bcrypt-nodejs');
+  bcrypt = require('bcrypt-nodejs'),
+  myObj = {};
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/data');
 
@@ -33,24 +34,40 @@ exports.admin = function (req, res) {
 };
 
 exports.authenticate = function (req, res) {
-  var userId = Users.find({ username: req.body.username }, { _id:1 });
-  console.log(userId);
-  if (userId) {
-    if (checkPass(userId, req.body.password)) {
-      console.log('Successful login by ' + userId);
+  var userId;
+  Users.findOne({ username: req.body.username }, function (err, person) {
+    userId = person._id;
+    if (userId) {
+      checkPass(userId, req.body.password, res);
+    } else {
+      res.render('login', {
+        errorMsg: 'That username does not exist.'
+      });
     }
-  }
+  });
 };
 
-function checkPass(id, password) {
+function checkPass(id, password, response) {
   var authentic = false,
-    dbPass = Users.findById(id);
-  dbPass = dbPass.password;
-  bcrypt.compare(password, dbPass, function (err, res) {
-    if (err) return console.error(err);
-    authentic = res;
+    dbPass;
+  Users.findById(id, function (err, person) {
+    dbPass = person.password;
+    bcrypt.compare(password, dbPass, function (err, res) {
+      if (err) return console.error(err);
+      if (!res) {
+        response.render('login', {
+          errorMsg: 'That password is incorrect.'
+        });
+      } else {
+        console.log(person.username + ' has logged in.');
+        if (person.user_level === "admin") {
+          response.redirect('/admin');
+        } else {
+          response.redirect('/details/' + id);
+        }
+      }
+    });
   });
-  return authentic;
 }
 
 exports.index = function (req, res) {
@@ -67,10 +84,9 @@ exports.create = function (req, res) {
 
 exports.createUser = function (req, res) {
   console.log(req.body.password);
-  var hashedPass = hashIt(req.body.password);
   var person = new Users({
     username: req.body.username,
-    password: hashedPass,
+    password: "",
     user_level: req.body.user_level,
     email: req.body.email,
     age: req.body.age,
@@ -78,23 +94,23 @@ exports.createUser = function (req, res) {
     ans2: req.body.ans2,
     ans3: req.body.ans3
   });
-  person.save(function (err, user) {
-    if (err != undefined) { console.log(err); return; }
-    console.log(req.body.username + ' added');
-  });
+  hashNSave(req.body.password, person);
   res.redirect('/');
 };
 
-function hashIt(toHash) {
-  var obj = { };
-  bcrypt.hash(toHash, null, null, function (err, hash) {
-    obj.hashed = hash;
+function saveUser(person) {
+  person.save(function (err, user) {
+    if (err != undefined) { console.log(err); return; }
+    console.log(person.username + ' added, password ' + person.password);
   });
-  console.log(obj.hashed);
-  return obj.hashed;
 }
 
-console.log(hashIt('hashMe'));
+function hashNSave(toHash, person) {
+  bcrypt.hash(toHash, null, null, function (err, hash) {
+    person.password = hash;
+    saveUser(person);
+  });
+}
 
 exports.edit = function (req, res) {
   Users.findById(req.params.id, function (err, user) {
@@ -147,3 +163,5 @@ exports.login = function (req, res) {
 
   });
 };
+
+// admin and user creation
