@@ -1,14 +1,16 @@
 extends layout
 
 block content
-    form(method='post', action='/')
-        label(for='username') Username:
-        br
-        input(name='username')
-        p
-        label(for='password') Password:
-        br
-        input(name='password', type='password')
-        p
-        p #{errorMsg}
-        input(type='submit', value='Enter')
+    h2(id='title') Login
+    div(id='container')
+        form(method='post', action='/')
+            label(for='username') Username:
+            br
+            input(name='username')
+            p
+            label(for='password') Password:
+            br
+            input(name='password', type='password')
+            p
+            p #{errorMsg}
+            input(type='submit', value='Login')
