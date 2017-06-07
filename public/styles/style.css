@@ -1,10 +1,23 @@
+
 html {
-  background-color: #227;
+  background-color: #594f4f;
 }
 body {
   font-family: verdana, arial, sans-serif;
   font-size: 12px;
+  margin: auto;
   width: 80%;
   padding: 20px;
-  background-color: #eeb;
+  background-color: #9de0ad;
+  color: #594f4f;
+}
+
+#title {
+  text-align: center;
+}
+
+#container {
+ margin: auto;
+ width: 50%;
+ padding: 10px;
 }
