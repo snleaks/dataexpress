@@ -1,4 +1,4 @@
-var express = require('express'),
+var express = require('express');
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser');
   pug = require('pug'),
