@@ -5,19 +5,32 @@ html {
 body {
   font-family: verdana, arial, sans-serif;
   font-size: 12px;
-  margin: auto;
-  width: 80%;
+  margin: 0 auto;
+  width: 960px;
   padding: 20px;
   background-color: #9de0ad;
-  color: #594f4f;
 }
 
+* {
+  text-align: center;
+  display: block;
+  color: #594f4f;
+
+}
 #title {
   text-align: center;
 }
 
 #container {
- margin: auto;
- width: 50%;
+ overflow: auto;
+ height: 100%;
+ background-color: #e5fcc2;
  padding: 10px;
+ margin: 10px;
+}
+
+.col1, .col2, .col3 {
+  width: 400px;
+  float: left;
+  margin: 10px;
 }
