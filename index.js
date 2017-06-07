@@ -1,6 +1,6 @@
-var express = require('express');
-var expressSession = require('express-session');
-var cookieParser = require('cookie-parser');
+var express = require('express'),
+  expressSession = require('express-session'),
+  cookieParser = require('cookie-parser'),
   pug = require('pug'),
   path = require('path'),
   route = require('./routes/routes.js'),
