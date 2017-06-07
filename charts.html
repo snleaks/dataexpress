@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <link rel="stylesheet" type="text/css" href="/styles/style.css">
+        <title>Survey Responses</title>
     </head>
     <body>
-        Question 1:
-        <br>
-        <canvas id="graph1" width='400' height='200'></canvas>
-        <br>
-        Question 2:
-        <br>
-        <canvas id="graph2" width='300' height='300'></canvas>
-        <br>
-        Question 3:
-        <br>
-        <canvas id="graph3" width='300' height='300'></canvas>
+        <div id="container">
+            <div class="col1">
+                Question 1:
+                <br>
+                <canvas id="graph1" width='400' height='200'></canvas>
+            </div>
+            <div class="col2">
+                Question 2:
+                <br>
+                <canvas id="graph2" width='300' height='300'></canvas>
+            </div>
+            <div class="col3">
+                Question 3:
+                <br>
+                <canvas id="graph3" width='300' height='300'></canvas>
+            </div>
+        </div>
         <script src="charts.js"></script>
     </body>
 </html>
